@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Home.aspx.cs" Inherits="Home" %>
 
 <!DOCTYPE html>
 
@@ -73,7 +73,7 @@
 
 
 
-           <asp:HyperLink ID="hypLink" runat="server" Text="Click here for Registration" NavigateUrl="~/Default1.aspx" ForeColor="blue" Font-Italic="true"></asp:HyperLink>
+           <asp:HyperLink ID="hypLink" runat="server" Text="Click here for Registration" NavigateUrl="~/registration.aspx" ForeColor="blue" Font-Italic="true"></asp:HyperLink>
 
     </div>
     </form>
