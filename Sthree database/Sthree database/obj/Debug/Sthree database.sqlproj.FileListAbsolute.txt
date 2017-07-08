@@ -1,0 +1,9 @@
+D:\project\Sthree database\Sthree database\bin\Debug\Sthree.dacpac
+D:\project\Sthree database\Sthree database\bin\Debug\Sthree_database.dll
+D:\project\Sthree database\Sthree database\bin\Debug\Sthree_database.pdb
+D:\project\Sthree database\Sthree database\obj\Debug\Model.xml
+D:\project\Sthree database\Sthree database\obj\Debug\refactor.xml
+D:\project\Sthree database\Sthree database\obj\Debug\postdeploy.sql
+D:\project\Sthree database\Sthree database\obj\Debug\predeploy.sql
+D:\project\Sthree database\Sthree database\obj\Debug\Sthree_database.dll
+D:\project\Sthree database\Sthree database\obj\Debug\Sthree_database.pdb
