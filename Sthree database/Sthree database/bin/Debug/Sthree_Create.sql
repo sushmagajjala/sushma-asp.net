@@ -187,14 +187,14 @@ PRINT N'Creating [dbo].[User]...';
 
 GO
 CREATE TABLE [dbo].[User] (
-    [FirstName]   NVARCHAR (10) NOT NULL,
-    [LastName]    NVARCHAR (10) NULL,
-    [UserName]    NVARCHAR (10) NOT NULL,
-    [Password]    NVARCHAR (15) NOT NULL,
-    [Gender]      BIT           NOT NULL,
-    [Email]       NVARCHAR (30) NOT NULL,
-    [PhoneNumber] NVARCHAR (15) NOT NULL,
-    PRIMARY KEY CLUSTERED ([FirstName] ASC)
+    [FirstName] NVARCHAR (10)  NOT NULL,
+    [LastName]  NVARCHAR (10)  NULL,
+    [UserName]  NVARCHAR (10)  NOT NULL,
+    [Password]  NVARCHAR (15)  NOT NULL,
+    [Gender]    BIT            NOT NULL,
+    [Address]   NVARCHAR (200) NOT NULL,
+    [Email Id]  NVARCHAR (30)  NOT NULL,
+    [PhoneNum]  NVARCHAR (20)  NOT NULL
 );
 
 
@@ -215,6 +215,12 @@ IF NOT EXISTS (SELECT OperationKey FROM [dbo].[__RefactorLog] WHERE OperationKey
 INSERT INTO [dbo].[__RefactorLog] (OperationKey) values ('ce5472c8-43d4-44e8-9d15-35a079911f8f')
 IF NOT EXISTS (SELECT OperationKey FROM [dbo].[__RefactorLog] WHERE OperationKey = '00cd3e0e-f3b1-4d33-8cbe-274dbe161bf8')
 INSERT INTO [dbo].[__RefactorLog] (OperationKey) values ('00cd3e0e-f3b1-4d33-8cbe-274dbe161bf8')
+IF NOT EXISTS (SELECT OperationKey FROM [dbo].[__RefactorLog] WHERE OperationKey = '68da8198-e341-4853-8a6a-b63590765c58')
+INSERT INTO [dbo].[__RefactorLog] (OperationKey) values ('68da8198-e341-4853-8a6a-b63590765c58')
+IF NOT EXISTS (SELECT OperationKey FROM [dbo].[__RefactorLog] WHERE OperationKey = '34326a9a-a18a-454e-9023-109f1d5e4327')
+INSERT INTO [dbo].[__RefactorLog] (OperationKey) values ('34326a9a-a18a-454e-9023-109f1d5e4327')
+IF NOT EXISTS (SELECT OperationKey FROM [dbo].[__RefactorLog] WHERE OperationKey = '13147b09-aafb-4f05-ab26-bcf8fd47a696')
+INSERT INTO [dbo].[__RefactorLog] (OperationKey) values ('13147b09-aafb-4f05-ab26-bcf8fd47a696')
 
 GO
 

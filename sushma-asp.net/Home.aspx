@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Home.aspx.cs" Inherits="Home" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" EnableSessionState="True" CodeFile="Home.aspx.cs" Inherits="Home" %>
+<%@ Import Namespace="System.Data.SqlClient" %>
 
 <!DOCTYPE html>
 
@@ -66,7 +67,7 @@
 
 
         <div class="custom">
-            <asp:Button ID="btnRegister" runat="server" CssClass="btn btn-primary" Text="Log In" />
+            <asp:Button ID="btnRegister" runat="server" CssClass="btn btn-primary" Text="Log In" OnClick="btnLogin_Click"/>
             </div>
 
         <br />
@@ -75,7 +76,49 @@
 
            <asp:HyperLink ID="hypLink" runat="server" Text="Click here for Registration" NavigateUrl="~/registration.aspx" ForeColor="blue" Font-Italic="true"></asp:HyperLink>
 
+        <asp:Label ID="Label" runat="server"></asp:Label>
     </div>
     </form>
 </body>
 </html>
+<script runat="server">
+    protected void btnLogin_Click(object sender, EventArgs e)
+    {
+        string UserName = txtuser.Text;
+        string Password = txtPwd.Text;
+
+        SqlConnection cn;
+        SqlCommand cmd;
+        SqlDataReader dr;
+
+        cn = new SqlConnection();
+        cmd = new SqlCommand();
+
+
+        cn.ConnectionString = "data source=sthree.database.windows.net;initial catalog=Sthree;user id=sgajjala;password=dr@vidss1";
+        cmd.CommandText = "select* from Users where UserName=@a and Password=@b";
+        cmd.Connection = cn;
+
+        cmd.Parameters.Add(new SqlParameter("@a", UserName));
+        cmd.Parameters.Add(new SqlParameter("@b", Password));
+
+
+        cn.Open();
+        dr = cmd.ExecuteReader();
+        if (dr.Read())
+        {
+            Session["UserName"] = txtuser.Text;
+            Response.Redirect("Welcome.aspx");
+
+
+        }
+        else
+        {
+            Label.Text = "UserName/Password are incorerct";
+        }
+        cn.Close();
+
+    }
+
+
+</script>

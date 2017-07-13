@@ -40,6 +40,24 @@ USE [$(DatabaseName)];
 
 
 GO
+PRINT N'Dropping unnamed constraint on [dbo].[User]...';
+
+
+GO
+ALTER TABLE [dbo].[User] DROP CONSTRAINT [PK__User__B31331C8400FB0B8];
+
+
+GO
+PRINT N'Altering [dbo].[User]...';
+
+
+GO
+ALTER TABLE [dbo].[User] ALTER COLUMN [Address] NVARCHAR (200) NOT NULL;
+
+ALTER TABLE [dbo].[User] ALTER COLUMN [Email Id] NVARCHAR (30) NOT NULL;
+
+
+GO
 PRINT N'Update complete.';
 
 

@@ -1,6 +1,9 @@
-﻿<%@ Page Language="C#" %>
+﻿<%@ Page Language="C#" EnableSessionState="true" %>
 
+<%@ Import Namespace="System.Data.SqlClient" %>
 <!DOCTYPE html>
+
+
 
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -33,13 +36,10 @@
         .form-control {
             background-color: #E3E5E7;
         }
-        .custom{
-            text-align:center;
+
+        .custom {
+            text-align: center;
         }
-
-
-
-
     </style>
     <title>simple form</title>
 
@@ -72,7 +72,6 @@
 
             </div>
 
-            <asp:RequiredFieldValidator ID="rfvlast" runat="server" ControlToValidate="txtLast" ErrorMessage="Last Name cannot be empty" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="regln" runat="server" ControlToValidate="txtLast" ErrorMessage="digits and special characters are not allowed" ForeColor="Red" ValidationExpression="^[a-z A-Z]*"></asp:RegularExpressionValidator>
 
             <div class="form-group">
@@ -107,7 +106,7 @@
             </div>
 
             <asp:RequiredFieldValidator ID="reqCP" runat="server" ControlToValidate="txtCP" ErrorMessage="Password Required" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
-
+            <asp:CompareValidator ID="comCPwd" runat="server" ControlToValidate="txtCP" ControlToCompare="txtPwd" ErrorMessage="password not matched" ForeColor="Red" SetFocusOnError="true"></asp:CompareValidator>
 
 
             <div class="form-group">
@@ -139,10 +138,10 @@
                 </div>
             </div>
             <asp:RequiredFieldValidator ID="rfvEail" runat="server" ControlToValidate="txtEmail" ErrorMessage="email id is compulsory" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
-             <asp:RegularExpressionValidator ID="regEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Email format only accepted" ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="regEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Email format only accepted" ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
 
 
-             <div class="form-group">
+            <div class="form-group">
                 <div class="row">
                     <asp:Label ID="lblPhn" CssClass="col-md-6" runat="server" Text="Phone Num" AssociatedControlID="txtPhn"></asp:Label>
 
@@ -150,18 +149,82 @@
                 </div>
             </div>
             <asp:RequiredFieldValidator ID="reqPhn" runat="server" ControlToValidate="txtPhn" ErrorMessage="Phone num is compulsory" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
-             <asp:RegularExpressionValidator ID="regPhn" runat="server" ControlToValidate="txtPhn" ErrorMessage="Phone num is not valid" ForeColor="Red" ValidationExpression="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}"></asp:RegularExpressionValidator>
-           
+            <asp:RegularExpressionValidator ID="regPhn" runat="server" ControlToValidate="txtPhn" ErrorMessage="Phone num is not valid" ForeColor="Red" ValidationExpression="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}"></asp:RegularExpressionValidator>
+
 
             <br />
             <br />
             <div class="custom">
-            <asp:Button ID="btnRegister" runat="server" CssClass="btn btn-primary" Text="REGISTER" />
+                <asp:Button ID="btnRegister" runat="server" CssClass="btn btn-primary" Text="REGISTER" OnClick="btnRegister_Click" />
             </div>
 
+            <asp:Label ID="Label" runat="server"></asp:Label>
 
         </form>
 
     </div>
 </body>
 </html>
+
+
+<script runat="server">
+
+    protected void btnRegister_Click(object sender, EventArgs e)
+    {
+        string FirstName = txtName.Text;
+        string LastName = txtLast.Text;
+        string UserName = txtuser.Text;
+        string Password = txtPwd.Text;
+        string Address = txtAdd.Text;
+        string EmailId = txtEmail.Text;
+        string PhoneNum = txtPhn.Text;
+
+
+        SqlConnection cn;
+        SqlCommand cmd;
+
+        cn = new SqlConnection();
+        cmd = new SqlCommand();
+
+
+        cn.ConnectionString = "data source=sthree.database.windows.net;initial catalog=Sthree;user id=sgajjala;password=dr@vidss1";
+        cmd.CommandText = "insert into Users (FirstName,LastName,UserName,Password,Address,EmailId,PhoneNum, Gender) values(@a,@b,@c,@d,@e,@f,@g, 1)";
+        cmd.Connection = cn;
+
+
+        cmd.Parameters.Add(new SqlParameter("@a", FirstName));
+        cmd.Parameters.Add(new SqlParameter("@b", LastName));
+        cmd.Parameters.Add(new SqlParameter("@c", UserName));
+        cmd.Parameters.Add(new SqlParameter("@d", Password));
+        cmd.Parameters.Add(new SqlParameter("@e", Address));
+        cmd.Parameters.Add(new SqlParameter("@f", EmailId));
+        cmd.Parameters.Add(new SqlParameter("@g", PhoneNum));
+
+        Boolean hjh = false;
+        int n=0;
+
+        try
+        {
+            cn.Open();
+            n = cmd.ExecuteNonQuery();
+        }
+        catch
+        {
+            Label.Text = "Registration not successfull";
+        }
+
+        finally
+        {
+            cn.Close();
+
+
+        }
+
+        if(n == 1){
+            Response.Redirect("Home.aspx");
+        }
+
+
+
+    }
+</script>
